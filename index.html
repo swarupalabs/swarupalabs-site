@@ -200,6 +200,23 @@
     .hero-grid { padding-top: 40px; }
     section { padding: 64px 0; }
   }
+  @media (max-width: 640px) {
+    .nav-cta { display: none; }
+  }
+
+  /* idea form */
+  .idea-form { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; text-align: left; }
+  .idea-form label { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .idea-form input, .idea-form textarea {
+    width: 100%; box-sizing: border-box; font-family: var(--body); font-size: 16px;
+    color: var(--cream); background: rgba(246, 241, 230, 0.06);
+    border: 1.5px solid rgba(246, 241, 230, 0.25); border-radius: 4px;
+    padding: 13px 14px;
+  }
+  .idea-form input:focus, .idea-form textarea:focus { outline: none; border-color: var(--gold-bright); }
+  .idea-form textarea { min-height: 110px; resize: vertical; }
+  .idea-form .btn-gold { border: none; cursor: pointer; font-family: var(--body); text-align: center; }
+  .form-note { font-size: 13.5px; color: #9b937f; margin: 4px 0 0 0; text-align: center; }
 </style>
 </head>
 <body>
@@ -340,10 +357,36 @@
 <section class="sec-indigo">
   <div class="wrap final">
     <h2>Bring us the stone.</h2>
-    <p>The gold is already inside your idea. Message us, tell us what you want to build, and we will break it open together.</p>
-    <a class="btn-gold" href="https://wa.me/919894334562?text=Hi%20Swarupa%20Labs!%20I%20have%20an%20idea%20to%20discuss." target="_blank" rel="noopener">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 8px;"><path d="M21 11.5a8.4 8.4 0 0 1-9.4 8.3 8.6 8.6 0 0 1-3.5-1L3 20l1.3-4.9A8.4 8.4 0 1 1 21 11.5Z"></path></svg>Chat with us on WhatsApp</a>
-    <p class="cta-alt">or email <a href="mailto:hello@swarupalabs.com">hello@swarupalabs.com</a></p>
+    <p>The gold is already inside your idea. Tell us what you want to build, and we will break it open together.</p>
+    <form class="idea-form" id="ideaForm">
+      <div>
+        <label for="f-name">Your name</label>
+        <input id="f-name" name="name" type="text" required autocomplete="name">
+      </div>
+      <div>
+        <label for="f-idea">Your idea</label>
+        <textarea id="f-idea" name="idea" required placeholder="A billing app for my shop, a website for my business, an AI assistant for..."></textarea>
+      </div>
+      <button class="btn-gold" type="submit">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 8px;"><path d="M21 11.5a8.4 8.4 0 0 1-9.4 8.3 8.6 8.6 0 0 1-3.5-1L3 20l1.3-4.9A8.4 8.4 0 1 1 21 11.5Z"></path></svg>Send via WhatsApp</button>
+      <p class="form-note" id="formNote">Opens WhatsApp with your message &middot; a copy is emailed to us &middot; or write to <a href="mailto:hello@swarupalabs.com">hello@swarupalabs.com</a></p>
+    </form>
+    <script>
+      document.getElementById('ideaForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('f-name').value.trim();
+        var idea = document.getElementById('f-idea').value.trim();
+        var msg = 'Hi Swarupa Labs! I am ' + name + '. My idea: ' + idea;
+        var note = document.getElementById('formNote');
+        fetch('https://formsubmit.co/ajax/swarupalabs@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ name: name, idea: idea, _subject: 'New idea via swarupalabs.com' })
+        }).catch(function () { /* email copy is best-effort; WhatsApp still opens */ });
+        note.textContent = 'Opening WhatsApp…';
+        window.open('https://wa.me/919894334562?text=' + encodeURIComponent(msg), '_blank');
+      });
+    </script>
   </div>
 </section>
 
