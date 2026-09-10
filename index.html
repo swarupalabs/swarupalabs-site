@@ -43,9 +43,10 @@
     padding: 26px 0;
   }
   .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-  .brand-text { display: flex; flex-direction: column; gap: 2px; }
-  .brand-tag { font-size: 12px; letter-spacing: 0.8px; color: var(--gold); font-style: italic; }
-  .brand-name { display: flex; align-items: baseline; gap: 10px; font-family: var(--display); font-size: 21px; letter-spacing: 2px; }
+  .brand-text { display: flex; flex-direction: column; gap: 3px; }
+  .brand-tag { font-size: 12px; letter-spacing: 0.8px; color: var(--gold); font-style: italic; line-height: 1.1; }
+  .brand-name { display: flex; align-items: baseline; gap: 10px; font-family: var(--display); font-size: 21px; letter-spacing: 2px; line-height: 1; }
+  .brand-name span { line-height: 1; }
   .brand-name .w1 { color: var(--cream); }
   .brand-name .w2 { color: var(--gold-bright); }
   .nav-cta {
@@ -312,7 +313,7 @@
   <div class="wrap">
     <p class="kicker">The two of us</p>
     <h2>Thirty years of software, one true form.</h2>
-    <p class="lede">Swarupa Labs is the merger of two one-person companies and two long careers.</p>
+    <p class="lede" style="max-width: none;">Swarupa Labs is the merger of two one-person companies and two long careers.</p>
     <div class="founder-grid">
       <div class="founder">
         <h3>Kamalakannan Kandasamy</h3>
